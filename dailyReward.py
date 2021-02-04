@@ -103,8 +103,8 @@ try:
                 claimed_counter += 1
                 print('**Claimed %d Time(s)**' % claimed_counter)
         except:
-            # wait 10 minutes + random time
-            t = 600 + random.randint(20, 30)
+            # wait 30 minutes + random time
+            t = 1800 + random.randint(1800, 3600)
             print('*Waiting %d Seconds*' % t)
             time.sleep(t)
 except KeyboardInterrupt:
