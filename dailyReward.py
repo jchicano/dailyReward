@@ -42,8 +42,10 @@ is_phone_guard_method = input(
     'Are you using Steam Guard with your phone? (Y/n): ')
 if is_phone_guard_method == 'Y' or is_phone_guard_method == 'y' or is_phone_guard_method == '':
     is_phone_guard_method = True
+    print('*Preparing Phone Auth*')
 else:
     is_phone_guard_method = False
+    print('*Preparing Mail Auth*')
 
 browser.get(URL)
 browser.find_element_by_xpath('//*[@id="top-bar"]/div/a').click()
@@ -61,7 +63,6 @@ sign_in_button = browser.find_element_by_xpath(
 sign_in_button.click()
 
 if is_phone_guard_method:
-    print('*Preparing Phone Auth*')
     steam_guard_code = input('Enter your Steam Guard Code: ')
     steam_guard_code = steam_guard_code.upper()
     steam_guard_input = browser.find_element_by_xpath(
@@ -70,9 +71,7 @@ if is_phone_guard_method:
     steam_guard_submit = browser.find_element_by_xpath(
         '//*[@id="login_twofactorauth_buttonset_entercode"]/div[1]')
     steam_guard_submit.click()
-    time.sleep(3)
 else:
-    print('*Preparing Mail Auth*')
     steam_guard_code = input('Enter your Steam Guard Code: ')
     steam_guard_code = steam_guard_code.upper()
     steam_guard_input = browser.find_element_by_xpath(
@@ -88,14 +87,20 @@ else:
 
 print('*Login Completed*')
 
+time.sleep(5)
 claimed_counter = 0
-browser.implicitly_wait(0)
+# browser.implicitly_wait(0)
 
 try:
     while True:  # claim daily reward
-        browser.get(URL + '/rewards')
+        # browser.get(URL + '/rewards')
+        browser.get(URL + '/auth/steam')
+        browser.find_element_by_xpath('//*[@id="imageLogin"]').click()
+        time.sleep(3)
         # browser.find_element_by_xpath(
         #     '//*[@id="reward-claim-submit"]').click()
+        browser.get(URL + '/rewards')
+        time.sleep(3)
         try:
             if(browser.find_element_by_xpath('//*[@id="reward-claim-submit"]')):
                 browser.find_element_by_xpath(
