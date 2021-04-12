@@ -62,6 +62,9 @@ sign_in_button = browser.find_element_by_xpath(
     '//*[@id="imageLogin"]')
 sign_in_button.click()
 
+# remove cookies banner
+browser.execute_script("document.getElementById('cookiePrefPopup').remove();")
+
 if is_phone_guard_method:
     steam_guard_code = input('Enter your Steam Guard Code: ')
     steam_guard_code = steam_guard_code.upper()
